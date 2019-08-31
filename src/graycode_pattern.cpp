@@ -25,7 +25,7 @@ namespace procam_calib
 			cv::waitKey(30);
 
 			std::ostringstream image_path;
-			image_path << save_directory_path << "/image";
+			image_path << save_directory_path << "/pattern";
 			if (idx < 10)
 			{
 				image_path << "0";
