@@ -24,5 +24,8 @@ add_library(CORE STATIC ${CORE_HEADERS} ${CORE_SOURCES})
 target_link_libraries(CORE ${DEPENDENCY})
 
 # executable
+add_executable(main_create_images main_create_images.cpp)
+target_link_libraries(main_create_images CORE ${DEPENDENCY})
+
 add_executable(main_webcamera_calibration main_webcamera_calibration.cpp)
 target_link_libraries(main_webcamera_calibration CORE ${DEPENDENCY})
