@@ -18,6 +18,7 @@ void WebCamera::start()
 void WebCamera::getImage(cv::Mat& image)
 {
 	camera >> image;
+	cv::cvtColor(image, image, cv::COLOR_BGR2GRAY);
 }
 
 void WebCamera::release()
