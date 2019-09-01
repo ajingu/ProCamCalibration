@@ -20,11 +20,14 @@ int main()
 	white = camera_images.back();
 	camera_images.pop_back();
 
+	cv::cvtColor(black, black, cv::COLOR_BGR2GRAY);
+	cv::cvtColor(white, white, cv::COLOR_BGR2GRAY);
+
 	cv::Mat substract;
 	cv::subtract(white, black, substract);
 	cv::imshow("Substract", substract);
 	cv::waitKey(0);
-	cv::destroyAllWindows();
+	//cv::destroyAllWindows();
 
 	cv::Mat c2p_x = cv::Mat::zeros(CAM_HEIGHT, CAM_WIDTH, CV_16S);
 	cv::Mat c2p_y = cv::Mat::zeros(CAM_HEIGHT, CAM_WIDTH, CV_16S);
@@ -35,13 +38,13 @@ int main()
 		for (int x = 0; x < CAM_WIDTH; x++)
 		{
 			cv::Point proj_pixel;
-			if(white.at<cv::uint8_t>(y, x) - black.at<cv::uint8_t>(y, x) > THRESH &&
-				!patterns->getProjPixel(camera_images, x, y, proj_pixel))
+			if((int)substract.at<cv::uint8_t>(y, x) > THRESH &&
+				patterns->getProjPixel(camera_images, x, y, proj_pixel))
 			{
 				c2p_x.at<cv::int16_t>(y, x) = proj_pixel.x;
 				c2p_y.at<cv::int16_t>(y, x) = proj_pixel.y;
-				show.at<cv::Vec3b>(y, x)[0] = (unsigned char)proj_pixel.x;
-				show.at<cv::Vec3b>(y, x)[1] = (unsigned char)proj_pixel.y;
+				show.at<cv::Vec3b>(y, x)[0] = (float)proj_pixel.x / GRAYCODE_WIDTH * 255;
+				show.at<cv::Vec3b>(y, x)[1] = (float)proj_pixel.y / GRAYCODE_HEIGHT * 255;
 				valid_count++;
 			}
 			else
@@ -63,6 +66,7 @@ int main()
 
 
 	cv::imshow("Correspondence", show);
+	cv::imwrite(CORRESPONDENCE_IMG_PATH, show);
 	cv::waitKey(0);
 
 	return 0;

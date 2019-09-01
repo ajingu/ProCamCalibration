@@ -7,6 +7,7 @@ void WebCamera::start()
 	camera = cv::VideoCapture(0);
 	camera.set(cv::CAP_PROP_FRAME_WIDTH, width);
 	camera.set(cv::CAP_PROP_FRAME_HEIGHT, height);
+	camera.set(cv::CAP_PROP_SETTINGS, 1);
 
 	if (!camera.isOpened())
 	{
