@@ -5,7 +5,7 @@ using namespace procam_calib;
 
 int main()
 {
-	GrayCodePattern pattern = GrayCodePattern(PROJ_WIDTH, PROJ_HEIGHT);
+	GrayCodePattern pattern = GrayCodePattern(GRAYCODE_WIDTH, GRAYCODE_HEIGHT);
 	
 	std::cout << "Press 's' key to start creating patterns";
 	

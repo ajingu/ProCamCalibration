@@ -25,7 +25,7 @@ int main()
 
 	
 	cv::namedWindow(PATTERN_WINDOW_NAME, cv::WINDOW_NORMAL);
-	cv::resizeWindow(PATTERN_WINDOW_NAME, PROJ_WIDTH, PROJ_HEIGHT);
+	cv::resizeWindow(PATTERN_WINDOW_NAME, GRAYCODE_WIDTH, GRAYCODE_HEIGHT);
 	cv::moveWindow(PATTERN_WINDOW_NAME, PROJ_SCREEN_POS_X, PROJ_SCREEN_POS_Y);
 	cv::setWindowProperty(PATTERN_WINDOW_NAME, cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN);
 	for(int idx = 0; idx < patterns.size(); idx++)
