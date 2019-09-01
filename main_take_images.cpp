@@ -9,20 +9,8 @@ const int PROJ_WIDTH = 1280;
 const int PROJ_HEIGHT = 800;
 const int CAM_WIDTH = 1920;
 const int CAM_HEIGHT = 1080;
-
-
-std::string buildSaveImgPath(int index)
-{
-	std::string index_str =std::to_string(index);
-
-	if (index < 10)
-	{
-		index_str = "0" + index_str;
-	}
-
-	return SAVE_DIR_PATH + "/camera" + index_str + ".png";
-}
-
+const int PROJ_SCREEN_POS_X = 1920;
+const int PROJ_SCREEN_POS_Y = 0;
 
 int main()
 {
@@ -48,6 +36,7 @@ int main()
 	
 	cv::namedWindow(PATTERN_WINDOW_NAME, cv::WINDOW_NORMAL);
 	cv::resizeWindow(PATTERN_WINDOW_NAME, PROJ_WIDTH, PROJ_HEIGHT);
+	cv::moveWindow(PATTERN_WINDOW_NAME, PROJ_SCREEN_POS_X, PROJ_SCREEN_POS_Y);
 	cv::setWindowProperty(PATTERN_WINDOW_NAME, cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN);
 	for(int idx = 0; idx < patterns.size(); idx++)
 	{
@@ -57,7 +46,10 @@ int main()
 			break;
 		}
 		camera.getImage(camera_img);
-		cv::imwrite(buildSaveImgPath(idx), camera_img);
+
+		std::ostringstream stream;
+		stream << SAVE_DIR_PATH << "/camera" << std::setfill('0') << std::setw(2) << idx << ".png";
+		cv::imwrite(stream.str(), camera_img);
 	}
 	cv::destroyAllWindows();
 
