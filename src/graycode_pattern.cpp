@@ -10,18 +10,18 @@ namespace procam_calib
 		params.width = proj_width;
 		params.height = proj_height;
 
-		std::vector<cv::Mat> patterns;
+		std::vector<cv::Mat> pattern_images;
 		cv::Mat black, white;
 
-		cv::Ptr<cv::structured_light::GrayCodePattern> graycode = cv::structured_light::GrayCodePattern::create(params);
-		graycode->generate(patterns);
-		graycode->getImagesForShadowMasks(black, white);
-		patterns.push_back(white);
-		patterns.push_back(black);
+		cv::Ptr<cv::structured_light::GrayCodePattern> graycode_pattern = cv::structured_light::GrayCodePattern::create(params);
+		graycode_pattern->generate(pattern_images);
+		graycode_pattern->getImagesForShadowMasks(black, white);
+		pattern_images.push_back(white);
+		pattern_images.push_back(black);
 
-		for (int idx = 0; idx < patterns.size(); idx++)
+		for (int idx = 0; idx < pattern_images.size(); idx++)
 		{
-			cv::imshow("show", patterns[idx]);
+			cv::imshow("show", pattern_images[idx]);
 			cv::waitKey(30);
 
 			std::ostringstream image_path;
@@ -32,7 +32,7 @@ namespace procam_calib
 			}
 			image_path << std::to_string(idx) << ".png";
 
-			cv::imwrite(image_path.str(), patterns[idx]);
+			cv::imwrite(image_path.str(), pattern_images[idx]);
 		}
 	}
 }

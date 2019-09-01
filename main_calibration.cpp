@@ -19,8 +19,8 @@ int main()
 	white = camera_images.back();
 	camera_images.pop_back();
 
-	cv::Mat c2p_x = cv::Mat::zeros(CAM_HEIGHT, CAM_WIDTH, CV_16U);
-	cv::Mat c2p_y = cv::Mat::zeros(CAM_HEIGHT, CAM_WIDTH, CV_16U);
+	cv::Mat c2p_x = cv::Mat::zeros(CAM_HEIGHT, CAM_WIDTH, CV_16S);
+	cv::Mat c2p_y = cv::Mat::zeros(CAM_HEIGHT, CAM_WIDTH, CV_16S);
 	for (int y = 0; y < CAM_HEIGHT; y++)
 	{
 		for (int x = 0; x < CAM_WIDTH; x++)
@@ -29,8 +29,13 @@ int main()
 			if(white.at<cv::uint8_t>(y, x) - black.at<cv::uint8_t>(y, x) > THRESH &&
 				!patterns->getProjPixel(camera_images, x, y, proj_pixel))
 			{
-				c2p_x.at<cv::uint16_t>(y, x) = proj_pixel.x;
-				c2p_y.at<cv::uint16_t>(y, x) = proj_pixel.y;
+				c2p_x.at<cv::int16_t>(y, x) = proj_pixel.x;
+				c2p_y.at<cv::int16_t>(y, x) = proj_pixel.y;
+			}
+			else
+			{
+				c2p_x.at<cv::int16_t>(y, x) = -1;
+				c2p_y.at<cv::int16_t>(y, x) = -1;
 			}
 		}
 	}
