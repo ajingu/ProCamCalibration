@@ -1,16 +1,6 @@
+#include "const.hpp"
 #include "collect.hpp"
 #include "webcamera.hpp"
-
-const std::string PATTERNS_DIR_PATH = "../data/pattern";
-const std::string SAVE_DIR_PATH = "../data/camera";
-const std::string PATTERN_WINDOW_NAME = "Pattern";
-const std::string CAMERA_WINDOW_NAME = "Camera";
-const int PROJ_WIDTH = 1280;
-const int PROJ_HEIGHT = 800;
-const int CAM_WIDTH = 1920;
-const int CAM_HEIGHT = 1080;
-const int PROJ_SCREEN_POS_X = 1920;
-const int PROJ_SCREEN_POS_Y = 0;
 
 int main()
 {
@@ -48,7 +38,7 @@ int main()
 		camera.getImage(camera_img);
 
 		std::ostringstream stream;
-		stream << SAVE_DIR_PATH << "/camera" << std::setfill('0') << std::setw(2) << idx << ".png";
+		stream << CAMERA_DIR_PATH << "/camera" << std::setfill('0') << std::setw(2) << idx << ".png";
 		cv::imwrite(stream.str(), camera_img);
 	}
 	cv::destroyAllWindows();

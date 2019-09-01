@@ -1,8 +1,5 @@
+#include "const.hpp"
 #include "graycode_pattern.hpp"
-
-const int PROJ_WIDTH = 1280;
-const int PROJ_HEIGHT = 800;
-const std::string SAVE_DIRECTORY_PATH = "../data/pattern";
 
 using namespace procam_calib;
 
@@ -19,7 +16,7 @@ int main()
 		if (key == 's') break;
 	}
 
-	pattern.create(SAVE_DIRECTORY_PATH);
+	pattern.create(PATTERNS_DIR_PATH);
 
 	return 0;
 }
