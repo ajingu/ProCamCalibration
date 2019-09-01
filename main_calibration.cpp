@@ -23,9 +23,9 @@ int main()
 	cv::cvtColor(black, black, cv::COLOR_BGR2GRAY);
 	cv::cvtColor(white, white, cv::COLOR_BGR2GRAY);
 
-	cv::Mat substract;
-	cv::subtract(white, black, substract);
-	cv::imshow("Substract", substract);
+	cv::Mat subtract;
+	cv::subtract(white, black, subtract);
+	cv::imshow("Subtract", subtract);
 	cv::waitKey(0);
 	//cv::destroyAllWindows();
 
@@ -38,13 +38,14 @@ int main()
 		for (int x = 0; x < CAM_WIDTH; x++)
 		{
 			cv::Point proj_pixel;
-			if((int)substract.at<cv::uint8_t>(y, x) > THRESH &&
+			if((int)subtract.at<cv::uint8_t>(y, x) > THRESH &&
 				patterns->getProjPixel(camera_images, x, y, proj_pixel))
 			{
 				c2p_x.at<cv::int16_t>(y, x) = proj_pixel.x;
 				c2p_y.at<cv::int16_t>(y, x) = proj_pixel.y;
 				show.at<cv::Vec3b>(y, x)[0] = (float)proj_pixel.x / GRAYCODE_WIDTH * 255;
 				show.at<cv::Vec3b>(y, x)[1] = (float)proj_pixel.y / GRAYCODE_HEIGHT * 255;
+				//std::cout << show.at<cv::Vec3b>(y, x) << std::endl;
 				valid_count++;
 			}
 			else
@@ -64,7 +65,7 @@ int main()
 	fs_c2p_x.release();
 	fs_c2p_y.release();
 
-
+	//[FIX] ãŽè‚­‘Î‰ž•t‚¯‚Å‚«‚Ä‚È‚³‚»‚¤‚¾‚Á‚½
 	cv::imshow("Correspondence", show);
 	cv::imwrite(CORRESPONDENCE_IMG_PATH, show);
 	cv::waitKey(0);
